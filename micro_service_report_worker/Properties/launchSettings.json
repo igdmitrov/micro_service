@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "micro_service_report_worker": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

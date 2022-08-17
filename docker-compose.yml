@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    restart: always
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./volumes/rabbitmq:/var/lib/rabbitmq/mnesia/
+
+  micro_service_webapi:
+    image: ${DOCKER_REGISTRY-}microservicewebapi
+    build:
+      context: .
+      dockerfile: micro_service_webapi/Dockerfile
+    links:
+          - rabbitmq
+
+  micro_service_report_worker:
+    image: ${DOCKER_REGISTRY-}microservicereportworker
+    build:
+      context: .
+      dockerfile: micro_service_report_worker/Dockerfile
+    links:
+          - rabbitmq
+
